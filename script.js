@@ -58,7 +58,7 @@ window.onload = () => {
 // Hacer una peticion
 const callRequire = (
   name = "Peru",
-  url = `http://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${name}&days=7`
+  url = `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${name}&days=7`
 ) => {
   try {
     fetch(url)
@@ -251,7 +251,7 @@ search.addEventListener("input", async (e) => {
       searchResult__box.style.display = "none";
     } else {
       response = await fetch(
-        `http://api.weatherapi.com/v1/search.json?key=${API_KEY}&q=${name}`
+        `https://api.weatherapi.com/v1/search.json?key=${API_KEY}&q=${name}`
       );
       data = await response.json();
 
