@@ -1,24 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
 
 /*==================== GLOBAL ====================*/
 
-:root{
+:root {
   --colorBg: #fff;
   --colorWaveOne: #fff;
   --colorWaveTwo: #fff;
   --colorFont: #333;
-
 }
 
-*{
+* {
   box-sizing: border-box;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   margin: 0;
   padding: 0;
 }
 
-body{
-  background: linear-gradient(0.15turn, #988EC2, #B4B3D9, #D2DCF2);
+body {
+  background: linear-gradient(0.15turn, #988ec2, #b4b3d9, #d2dcf2);
   color: var(--colorFont);
   min-height: 100vh;
   position: relative;
@@ -26,13 +25,13 @@ body{
   display: flex;
 }
 
-.container{
+.container {
   width: 75%;
   margin: auto;
   transition: width 0.2s ease;
 }
 
-.wave{
+.wave {
   bottom: 0;
   position: absolute;
   min-height: 400px;
@@ -41,132 +40,118 @@ body{
   z-index: -1;
 }
 
-
 /*==================== FORM LOCATION ====================*/
 
-.search__box{
-  /* padding-top: 2rem; */
+.search__box {
   margin: auto;
   position: relative;
   max-width: 700px;
   min-width: 300px;
 }
 
-.form__input{
+.form__input {
   background-color: #c6b6fc;
-  border-radius: 2em;
+  border-radius: 1.5em;
   border: none;
-  box-shadow: -10px 20px 40px 5px #9f96b3, inset 2px 4px 10px 2px #B4B3D9;
+  box-shadow: -10px 20px 40px 5px #9f96b3, inset 2px 4px 10px 2px #b4b3d9;
   font-size: 16px;
   font-weight: 500;
   outline: none;
   padding: 1.3rem 1rem 1.3rem 2rem;
   width: 100%;
-
 }
-.search__icon{
+.search__icon {
   position: absolute;
   line-height: 60px !important;
   margin-left: -60px;
   font-size: 1.15em;
 }
 
-input::placeholder{
+input::placeholder {
   color: #7b8497;
 }
 
-
-
-
-
-
 /*==================== WEATHER ====================*/
 
-.weather__container{
+.weather__container {
   display: flex;
   justify-content: space-around;
   margin-top: 4em;
- 
 }
 
-.location__description{
+.location__description {
   display: flex;
   flex-direction: column;
   flex-basis: 25%;
 }
 
-.location__description .location--icon{
-  display: flex;  
+.location__description .location--icon {
+  display: flex;
   flex: 0.5;
 }
 
-.location__description .name{
+.location__description .name {
   font-size: 2em;
   font-weight: 300;
-
 }
 
-.location__description .location--icon i{
+.location__description .location--icon i {
   font-size: 3em;
   margin-right: 20px;
 }
 
-.location__description .description__box--date{
+.location__description .description__box--date {
   flex: 1;
 }
 
-.location__description .description__box--date .date{
+.location__description .description__box--date .date {
   font-size: 3em;
   font-weight: 900;
 }
-.location__description .description__box--date .day{
+.location__description .description__box--date .day {
   font-size: 1.8em;
   font-weight: 900;
   margin-top: -5px;
 }
 
-.location__image{
+.location__image {
   flex-basis: auto;
   text-align: center;
-
 }
 
-.location__info{
+.location__info {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   flex-basis: 25%;
 }
 
-.info__box--temperature{
+.info__box--temperature {
   display: flex;
   align-items: center;
   gap: 1em;
 }
 
-.info__box--temperature .temperature--icon{
+.info__box--temperature .temperature--icon {
   font-size: 3.5em;
-
 }
 
-
-.info__box--temperature .temperature{
+.info__box--temperature .temperature {
   font-size: 5em;
   font-weight: 900;
   letter-spacing: -4px;
   line-height: 128px;
 }
 
-.info__box--status{
+.info__box--status {
   display: flex;
   flex-direction: column;
   gap: 1em;
 }
 
-
 /*==================== DAY OF THE WEEKEND ====================*/
 
-.weekdays__container{
+.weekdays__container {
   margin-top: 4em;
   position: relative;
   display: flex;
@@ -175,11 +160,12 @@ input::placeholder{
   gap: 50px;
   /* padding-bottom: 2em; */
 }
-.weekdays__box{
+.weekdays__box {
   width: calc(14.2857% - 50px);
   align-items: center;
   background-color: rgba(255, 255, 255, 0.25);
-  filter: drop-shadow( -15px -15px 15px rgba(255, 255, 255, 0.5)) drop-shadow(-15px 15px 15px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(-15px -15px 15px rgba(255, 255, 255, 0.5))
+    drop-shadow(-15px 15px 15px rgba(0, 0, 0, 0.5));
   border-radius: 2em;
   display: flex;
   flex-direction: column;
@@ -188,18 +174,18 @@ input::placeholder{
   /* max-width: 146px; */
   padding: 1em;
 }
-.weekdays__box img{
+.weekdays__box img {
   margin-bottom: 20px;
   object-fit: cover;
   width: 100%;
 }
-.weekdays__box .date{
+.weekdays__box .date {
   font-size: 1em;
 }
-.weekdays__box .day{
+.weekdays__box .day {
   font-size: 1em;
 }
-.weekdays__box .temperature{
+.weekdays__box .temperature {
   font-size: 2em;
   font-weight: 900;
   letter-spacing: -4px;
@@ -207,7 +193,7 @@ input::placeholder{
 
 /*==================== SEARCH RESULT BOX JS ====================*/
 
-.searchResult__box{
+.searchResult__box {
   position: absolute;
   width: 100%;
   margin-top: 20px;
@@ -217,101 +203,92 @@ input::placeholder{
   display: none;
   z-index: 4;
 }
-.searchResult__box li{
+.searchResult__box li {
   list-style: none;
   padding: 1rem;
-
 }
-.searchResult__box li:hover{
-  background-color: #988EC2;
+.searchResult__box li:hover {
+  background-color: #988ec2;
   border-radius: 0.5rem;
-
 }
-.loading--icon{
+.loading--icon {
   margin: auto;
   display: block;
   width: 100px;
 }
 
-
-
 /*==================== NOT FOUND ====================*/
 
-.not__found{
+.not__found {
   margin-top: 2em;
   padding: 4em;
   text-align: center;
   display: none;
 }
-.not__found img{
+.not__found img {
   width: 100%;
   max-width: 500px;
   min-width: 200px;
+  filter: brightness(20%);
 }
 
-.not__found h1{
+.not__found h1 {
   font-size: 3em;
   font-weight: 900;
 }
 
-
-
-
-
 /*==================== MEDIA QUERIES ====================*/
 
-@media (max-width:1600px){
-  .container{
+@media (max-width: 1600px) {
+  .container {
     width: 85%;
   }
 }
 
-@media (max-width:1368px){
-  .weekdays__box{
+@media (max-width: 1368px) {
+  .weekdays__box {
     width: 146px;
   }
-  .search__box{
+  .search__box {
     padding-top: 2em;
   }
-  .weekdays__container{
+  .weekdays__container {
     padding-bottom: 2em;
   }
 }
 
-@media (max-width:1040px){
-  .info__box--temperature .temperature{
+@media (max-width: 1040px) {
+  .info__box--temperature .temperature {
     font-size: 3em;
-    
   }
 }
 
-
-@media (max-width:500px){
-  .container{
+@media (max-width: 500px) {
+  .container {
     width: 90%;
   }
-  .weather__container{
+  .weather__container {
     flex-direction: column;
   }
-  .location__description{
+  .location__description {
     flex-direction: row;
   }
-  .location--icon{
+  .location--icon {
     flex: 0.5 !important;
   }
-  .description__box--date{
+  .description__box--date {
     margin-top: -10px;
     text-align: end;
     flex: 0.5 !important;
   }
-  .location__image{
+  .location__image {
     text-align: center;
   }
-  .location__info{
+  .location__info {
     gap: 1em;
     align-items: center;
   }
-  .info__box--status{
+  .info__box--status {
     flex-flow: row wrap;
     justify-content: center;
     align-items: center;

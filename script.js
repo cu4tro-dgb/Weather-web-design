@@ -1,18 +1,18 @@
-const API_KEY = "c82012a3c90e491cb1105302230503";
+const API_KEY = "0c66c0c89d0b4639bec165726232003";
+
+const $ = (selector) => document.querySelector(selector);
 
 // Declarando variables para el escrito del uso de la API
-let nameCity = document.querySelector(".name");
-let dateCity = document.querySelector(".date");
-let dayCity = document.querySelector(".day");
+let nameCity = $(".name");
+let dateCity = $(".date");
+let dayCity = $(".day");
 
-let imageWeather = document.querySelector(".location__image img");
+let imageWeather = $(".location__image img");
 
-let temperature = document.querySelector(
-  ".info__box--temperature .temperature"
-);
+let temperature = $(".info__box--temperature .temperature");
 let condition__status = document.querySelectorAll(".info__box--status p");
 
-let weatherdays = document.querySelectorAll(".weekdays__box");
+let weatherdays = document.querySelector(".weekdays__container");
 let weatherdays_image = document.querySelectorAll(".weekdays__box img");
 let weatherdays_temperature = document.querySelectorAll(
   ".weekdays__box .temperature"
@@ -20,9 +20,8 @@ let weatherdays_temperature = document.querySelectorAll(
 let weatherdays_date = document.querySelectorAll(".weekdays__box .date");
 let weatherdays_day = document.querySelectorAll(".weekdays__box .day");
 
-let main = document.querySelector('#main');
-let not__found = document.querySelector('.not__found')
-
+let main = $("#main");
+let not__found = $(".not__found");
 
 // Declaranado variables para los meses y días para dar formato a una fecha
 const months = [
@@ -52,11 +51,11 @@ const days = [
 
 // Cargar
 window.onload = () => {
-  callRequire();
+  fectchingWeather();
 };
 
 // Hacer una peticion
-const callRequire = (
+const fectchingWeather = (
   name = "Peru",
   url = `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${name}&days=7`
 ) => {
@@ -64,56 +63,46 @@ const callRequire = (
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
+        if (data.error) {
+          main.style.display = "none";
+          not__found.style.display = "block";
+        } else {
+          main.style.display = "block";
+          not__found.style.display = "none";
 
-        if (data.error){
-          main.style.display = 'none';
-          not__found.style.display = 'block';
-        }
-        else{
+          const { location, current, forecast } = data;
 
-          main.style.display = 'block';
-          not__found.style.display = 'none';
+          nameCity.innerText = location.country + ", " + location.name; // get name the city
 
-          let datalocation = data.location;
-          let datacurrent = data.current;
-          let dataforecast = data.forecast.forecastday;
+          convertEpochDate(location.localtime_epoch, dateCity, dayCity);
 
-          // get name the city
-          nameCity.textContent = datalocation.country + ", " + datalocation.name;
+          asignamentImageWeather(current.condition.text, imageWeather); // get url icon image
 
-          convertEpochDate(datalocation.localtime_epoch, dateCity, dayCity);
-
-          // get url icon image
-          asignamentImageWeather(datacurrent.condition.text, imageWeather);
-
-          // get temperature weather city
-          temperature.textContent = datacurrent.temp_c + "°C";
+          temperature.textContent = current.temp_c + "°C"; // get temperature weather city
 
           // looping through the variable and printing on each paragraph
-          condition__status.forEach((e) => {
-            condition__status[0].textContent = `Preasure, mm ${datacurrent.pressure_mb}`;
-            condition__status[1].textContent = `Humidity, % ${datacurrent.humidity}`;
-            condition__status[2].textContent = `Probability of precipitation, % ${datacurrent.precip_in}`;
-            condition__status[3].textContent = `Wind, mph ${datacurrent.wind_mph}`;
+          condition__status.forEach(() => {
+            condition__status[0].textContent = `Preasure, mm ${current.pressure_mb}`;
+            condition__status[1].textContent = `Humidity, % ${current.humidity}`;
+            condition__status[2].textContent = `Probability of precipitation, % ${current.precip_in}`;
+            condition__status[3].textContent = `Wind, mph ${current.wind_mph}`;
           });
 
-          // get days of weeknds
-          for (let element in weatherdays) {
-            if (element <= 6) {
-              weatherdays_temperature[element].textContent =
-                dataforecast[element].day.maxtemp_c + "°C";
-              dateFormat(
-                dataforecast[element].date,
-                weatherdays_date[element],
-                weatherdays_day[element]
-              );
+          const daysOfWeek = forecast.forecastday;
+          weatherdays.innerHTML = "";
 
-              asignamentImageWeather(
-                dataforecast[element].day.condition.text,
-                weatherdays_image[element]
-              );
-            }
-          }
+          daysOfWeek.map((e, index) => {
+            let getDay = new Date(daysOfWeek[index].date).getDay();
+            weatherdays.innerHTML += `<div class="weekdays__box">
+            <img src="${asignamentImageWeather(
+              daysOfWeek[index].day.condition.text,
+              this
+            )}" alt="${daysOfWeek[index].day.condition.text}">
+            <h1 class="temperature">${daysOfWeek[index].day.maxtemp_c}°C</h1>
+            <h1 class="date">${getMonthDay(daysOfWeek[index].date)}</h1>
+            <h2 class="day">${days[getDay]}</h2>
+          </div>`;
+          });
         }
       });
   } catch (error) {
@@ -131,12 +120,10 @@ const convertEpochDate = (epoch, dateCity, dayCity) => {
 };
 
 // Funcion para dar formato a una fecha mediante Date
-const dateFormat = (dateFormat, dateCity, dayCity) => {
-  let das = dateFormat;
-  let date = new Date(das);
-
-  dateCity.textContent = `${months[date.getMonth()]} ${date.getDate()}`;
-  dayCity.textContent = days[date.getDay()];
+const getMonthDay = (dateFormat) => {
+  let day = dateFormat;
+  let date = new Date(day);
+  return `${months[date.getMonth()]} ${date.getDate()}`;
 };
 
 // Funcion para asignar imagen
@@ -221,22 +208,21 @@ const asignamentImageWeather = (data, image) => {
       image.src = "";
       break;
   }
+  return image.src;
 };
 
 // ** START : Impresion de datos mediante un Enter
-
 let search = document.querySelector(".location");
 
 search.addEventListener("keypress", (event) => {
   let name = search.value;
   if (event.key == "Enter") {
-    callRequire(name);
+    fectchingWeather(name);
     searchResult__box.style.display = "none";
   }
 });
 
 // ** START : Listado de data de la ciudad mediante un input ingresado
-
 let createFragment = document.createDocumentFragment();
 
 let searchResult__box = document.querySelector(".searchResult__box");
@@ -244,7 +230,8 @@ let search__box = document.querySelector(".search__box");
 
 search.addEventListener("input", async (e) => {
   searchResult__box.style.display = "block";
-  searchResult__box.innerHTML = "<img class='loading--icon' src='/img/hearts.svg' alt='Loading...'>"
+  searchResult__box.innerHTML =
+    "<img class='loading--icon' src='/img/hearts.svg' alt='Loading...'>";
   try {
     let name = e.target.value;
     if (name.length == 0) {
@@ -280,8 +267,7 @@ search.addEventListener("input", async (e) => {
 });
 
 // Obtener Ciudad mediante su latitud y longitud
-
 getLocation = function (lat, lon) {
   let name = `${lat},${lon}`;
-  callRequire(name);
+  fectchingWeather(name);
 };
